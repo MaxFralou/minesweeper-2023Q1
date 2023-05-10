@@ -1,9 +1,18 @@
-body {
+.minesweeper {
   margin: 0;
   display: flex;
   min-height: 100vh;
 }
 
-canvas {
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  height: 500px;
   margin: auto;
+}
+
+.cell{
+  width: 50px;
+  height: 50px;
 }
