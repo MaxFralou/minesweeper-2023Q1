@@ -4,6 +4,7 @@ const numMines = 10;
 const numRows = 10;
 const numCols = 10;
 const board = [];
+let gameOver = false;
 let clicksCount = 0;
 
 function renderBoard() {
@@ -41,8 +42,7 @@ function renderBoard() {
     boardHtml += `<div class="col ${col}">`;
     for (let row = 0; row < board[col].length; row += 1) {
       const cell = board[col][row];
-      // eslint-disable-next-line no-nested-ternary
-      boardHtml += `<div class="cell" data-row="${row}" data-col="${col}"> ${cell.isMine ? '💣' : cell.numAdjacentMines}</div>`;
+      boardHtml += `<div class="cell hidden ${cell.isMine ? 'mine' : ''}" data-row="${row}" data-col="${col}"> ${cell.isMine ? '💣' : cell.numAdjacentMines}</div>`;
     }
     boardHtml += '</div>';
   }
@@ -61,13 +61,32 @@ cells.forEach((cell) => {
     clicksCount += 1;
     document.querySelector('.clicks').innerText = clicksCount;
     console.log(row, col);
+
+    if (board[col][row].isMine === true) {
+      gameOver = true;
+      alert('GAME OVER');
+      cells.forEach((cell) => {
+        const cellRow = parseInt(cell.dataset.row, 10);
+        const cellCol = parseInt(cell.dataset.col, 10);
+        if (board[cellCol][cellRow].isMine === true) {
+          cell.classList.remove('hidden');
+          cell.classList.add('clicked');
+        }
+      });
+      return;
+    }
+
+    e.target.classList.remove('hidden');
   });
 });
 
 let seconds = 0;
-setInterval(() => {
+const intervalId = setInterval(() => {
   seconds += 1;
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
   document.querySelector('.duration').innerText = `${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  if (gameOver === true) {
+    clearInterval(intervalId);
+  }
 }, 1000);

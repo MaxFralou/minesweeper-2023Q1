@@ -31,6 +31,10 @@
   cursor: url('./assets/cursor.png'), auto;
 }
 
+.hidden {
+  color: transparent;
+  user-select: none;
+}
 
 .clicked {
   background: burlywood;
