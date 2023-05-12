@@ -1,7 +1,14 @@
 .minesweeper {
+  font-family: 'Montserrat', sans-serif;
   margin: 0;
   display: flex;
   min-height: 100vh;
+}
+
+.info {
+  position: absolute;
+  top: 8px;
+  left: 8px;
 }
 
 .container {
@@ -12,7 +19,18 @@
   margin: auto;
 }
 
-.cell{
-  width: 50px;
-  height: 50px;
+.cell {
+  margin: 1px;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 1px;
+  background-color: greenyellow;
+  width: 48px;
+  height: 49px;
+  cursor: url('./assets/cursor.png'), auto;
+}
+
+.hidden {
+  color: transparent;
+  user-select: none;
 }

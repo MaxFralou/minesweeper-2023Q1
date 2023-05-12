@@ -1,57 +1,53 @@
 const minesweeper = document.querySelector('.minesweeper');
 
+const numMines = 10;
+const numRows = 10;
+const numCols = 10;
+const board = [];
+
 function renderBoard() {
-  const size = 10;
-  const numMines = 10;
-  const board = [];
-
-  for (let i = 0; i < size; i += 1) {
-    const row = new Array(size).fill(0);
-    board.push(row);
-  }
-
-  const bombs = [];
-  for (let row = 0; row < size; row += 1) {
-    for (let col = 0; col < size; col += 1) {
-      bombs.push([row, col]);
+  for (let col = 0; col < numCols; col += 1) {
+    const rowArray = [];
+    for (let row = 0; row < numRows; row += 1) {
+      rowArray.push({
+        isMine: false,
+        revealed: false,
+        numAdjacentMines: 0,
+      });
     }
+    board.push(rowArray);
   }
-  bombs.sort(() => Math.random() - 0.5);
-  for (let i = 0; i < numMines; i += 1) {
-    const [row, col] = bombs[i];
-    board[row][col] = '💣';
-  }
+  let minesAdded = 0;
+  while (minesAdded < numMines) {
+    const row = Math.floor(Math.random() * numRows);
+    const col = Math.floor(Math.random() * numCols);
+    if (!board[col][row].isMine) {
+      board[col][row].isMine = true;
+      minesAdded += 1;
 
-  for (let row = 0; row < size; row += 1) {
-    for (let col = 0; col < size; col += 1) {
-      if (board[row][col] !== '💣') {
-        let count = 0;
-        for (let i = row - 1; i <= row + 1; i += 1) {
-          for (let j = col - 1; j <= col + 1; j += 1) {
-            if (i >= 0 && i < size && j >= 0 && j < size && board[i][j] === '💣') {
-              count += 1;
-            }
+      for (let i = col - 1; i <= col + 1; i += 1) {
+        for (let j = row - 1; j <= row + 1; j += 1) {
+          if (i >= 0 && i < numRows && j >= 0 && j < numCols) {
+            board[i][j].numAdjacentMines += 1;
           }
         }
-        board[row][col] = count;
       }
     }
   }
-  let boardHtml = '<div class="container">';
-  for (let row = 0; row < board.length; row += 1) {
-    boardHtml += `<div class="row ${row + 1}">`;
-    for (let col = 0; col < board[row].length; col += 1) {
-      const value = board[row][col];
-      if (value === '💣') {
-        boardHtml += `<div class="cell bomb">${value}</div>`;
-      } else {
-        boardHtml += `<div class="cell">${value}</div>`;
-      }
+  let boardHtml = '<div class="info"><div class="duration-title">Duration: <span class="duration">00:00</span></div><div class="counter-clicks">Clicks: <span class="clicks">0</span></div></div></div>';
+  boardHtml += '<div class="container">';
+  for (let col = 0; col < board.length; col += 1) {
+    boardHtml += `<div class="col ${col + 1}">`;
+    for (let row = 0; row < board[col].length; row += 1) {
+      const cell = board[col][row];
+      // eslint-disable-next-line no-nested-ternary
+      const cellClass = cell.revealed ? (cell.isMine ? 'bomb' : '') : 'hidden';
+      boardHtml += `<div class="cell ${cellClass}" data-row="${row}" data-col="${col}"> ${cell.isMine ? cell.value : cell.numAdjacentMines}</div>`;
     }
     boardHtml += '</div>';
   }
   boardHtml += '</div>';
   minesweeper.innerHTML = boardHtml;
-  console.log(board);
 }
+
 renderBoard();
