@@ -22,6 +22,7 @@
 .cell {
   margin: 1px;
   text-align: center;
+  font-size: 30px;
   line-height: 50px;
   border-radius: 1px;
   background-color: greenyellow;
@@ -30,7 +31,39 @@
   cursor: url('./assets/cursor.png'), auto;
 }
 
-.hidden {
-  color: transparent;
-  user-select: none;
+
+.clicked {
+  background: burlywood;
+}
+
+.neighbor-1{
+  color: red;
+}
+
+.neighbor-2{
+  color: orange;
+}
+
+.neighbor-3{
+  color: yellow;
+}
+
+.neighbor-4{
+  color: green;
+}
+
+.neighbor-5{
+  color: blue;
+}
+
+.neighbor-6{
+  color: navy;
+}
+
+.neighbor-7{
+  color: purple;
+}
+
+.neighbor-8{
+  color: black;
 }

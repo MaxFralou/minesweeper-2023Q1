@@ -4,6 +4,7 @@ const numMines = 10;
 const numRows = 10;
 const numCols = 10;
 const board = [];
+let clicksCount = 0;
 
 function renderBoard() {
   for (let col = 0; col < numCols; col += 1) {
@@ -37,12 +38,11 @@ function renderBoard() {
   let boardHtml = '<div class="info"><div class="duration-title">Duration: <span class="duration">00:00</span></div><div class="counter-clicks">Clicks: <span class="clicks">0</span></div></div></div>';
   boardHtml += '<div class="container">';
   for (let col = 0; col < board.length; col += 1) {
-    boardHtml += `<div class="col ${col + 1}">`;
+    boardHtml += `<div class="col ${col}">`;
     for (let row = 0; row < board[col].length; row += 1) {
       const cell = board[col][row];
       // eslint-disable-next-line no-nested-ternary
-      const cellClass = cell.revealed ? (cell.isMine ? 'bomb' : '') : 'hidden';
-      boardHtml += `<div class="cell ${cellClass}" data-row="${row}" data-col="${col}"> ${cell.isMine ? cell.value : cell.numAdjacentMines}</div>`;
+      boardHtml += `<div class="cell" data-row="${row}" data-col="${col}"> ${cell.isMine ? '💣' : cell.numAdjacentMines}</div>`;
     }
     boardHtml += '</div>';
   }
@@ -51,3 +51,23 @@ function renderBoard() {
 }
 
 renderBoard();
+
+const cells = document.querySelectorAll('.cell');
+
+cells.forEach((cell) => {
+  cell.addEventListener('click', (e) => {
+    const row = parseInt(e.target.dataset.row, 10);
+    const col = parseInt(e.target.dataset.col, 10);
+    clicksCount += 1;
+    document.querySelector('.clicks').innerText = clicksCount;
+    console.log(row, col);
+  });
+});
+
+let seconds = 0;
+setInterval(() => {
+  seconds += 1;
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  document.querySelector('.duration').innerText = `${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+}, 1000);
