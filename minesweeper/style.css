@@ -3,6 +3,7 @@
   margin: 0;
   display: flex;
   min-height: 100vh;
+  background: rgb(245, 245, 245);
 }
 
 .info {
@@ -32,36 +33,39 @@
 }
 
 .hidden {
-  color: transparent;
-  user-select: none;
+  text-indent: -9999px;
 }
 
 .clicked {
-  background: burlywood;
+  background: rgb(211, 159, 92);
+}
+
+.boom {
+  background: rgb(255, 63, 63);
 }
 
 .neighbor-1{
-  color: red;
-}
-
-.neighbor-2{
-  color: orange;
-}
-
-.neighbor-3{
-  color: yellow;
-}
-
-.neighbor-4{
-  color: green;
-}
-
-.neighbor-5{
   color: blue;
 }
 
-.neighbor-6{
+.neighbor-2{
+  color: green;
+}
+
+.neighbor-3{
+  color: red;
+}
+
+.neighbor-4{
   color: navy;
+}
+
+.neighbor-5{
+  color: brown;
+}
+
+.neighbor-6{
+  color: teal;
 }
 
 .neighbor-7{
