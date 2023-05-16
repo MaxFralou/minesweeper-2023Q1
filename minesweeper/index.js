@@ -42,7 +42,24 @@ function renderBoard() {
       }
     }
   }
-  let boardHtml = '<div class="info"><div class="duration-title">Duration: <span class="duration">00:00</span></div><div class="counter-clicks">Clicks: <span class="clicks">0</span></div></div></div>';
+  let boardHtml = `
+  <div class="wrapper">
+    <div class="duration-title">Time: <span class="duration">00:00</span></div>
+    <div class="container-button">
+      <div class="reset">RESET</div>
+      <div class="diff easy">10x10</div>
+      <div class="diff medium">15x15</div>
+      <div class="diff hard">25x25</div>
+    </div>
+    <div class="container-clicks">
+      <div class="counter-clicks">Clicks: <span class="clicks">0</span></div>
+      <div class="counter-flags">Flags: <span class="clicks-flags">0</span></div>
+      <div>
+        <input type="range" id="mines" name="mines" min="10" max="99" value="10" step="1">
+        <label for="mines">Mines: <span class="mines">0</span></label>
+      </div>
+    </div>
+`;
   boardHtml += '<div class="container">';
   for (let col = 0; col < board.length; col += 1) {
     boardHtml += `<div class="col ${col}">`;
@@ -56,6 +73,7 @@ function renderBoard() {
     }
     boardHtml += '</div>';
   }
+  boardHtml += '</div>';
   boardHtml += '</div>';
   minesweeper.innerHTML = boardHtml;
   updateUnrevealedCellsCount();
