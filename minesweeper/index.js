@@ -6,6 +6,12 @@ const numCols = 10;
 const board = [];
 let gameOver = false;
 let clicksCount = 0;
+let numUnrevealedCells;
+
+const updateUnrevealedCellsCount = () => {
+  const revealedCells = document.querySelectorAll('.cell.clicked');
+  numUnrevealedCells = numCols * numRows - revealedCells.length;
+};
 
 function renderBoard() {
   for (let col = 0; col < numCols; col += 1) {
@@ -52,6 +58,7 @@ function renderBoard() {
   }
   boardHtml += '</div>';
   minesweeper.innerHTML = boardHtml;
+  updateUnrevealedCellsCount();
 }
 
 renderBoard();
@@ -90,7 +97,13 @@ const revealAdjacentCells = (col, row) => {
         revealAdjacentCells(cellCol, cellRow);
       }
     });
+  } else {
+    numUnrevealedCells -= 1;
   }
+
+  updateUnrevealedCellsCount();
+  // eslint-disable-next-line no-use-before-define
+  checkWinCondition();
 };
 
 cells.forEach((cell) => {
@@ -115,20 +128,30 @@ cells.forEach((cell) => {
       });
       return;
     }
-
     e.target.classList.remove('hidden');
     e.target.classList.add('clicked');
     revealAdjacentCells(col, row);
+    updateUnrevealedCellsCount();
   });
 });
 
 let seconds = 0;
+let timerValue = '';
+
+const timer = document.querySelector('.duration');
 const intervalId = setInterval(() => {
   seconds += 1;
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
-  document.querySelector('.duration').innerText = `${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  timerValue = `${minutes < 10 ? '0' : ''}${minutes} min : ${remainingSeconds < 10 ? '0' : ''} ${remainingSeconds} sec`;
+  timer.innerText = timerValue;
   if (gameOver === true) {
     clearInterval(intervalId);
   }
 }, 1000);
+
+const checkWinCondition = () => {
+  if (numUnrevealedCells === numMines) {
+    alert(`Congratulations, you win! It took you ${timerValue} and ${clicksCount} moves, try again and good luck!!!`);
+  }
+};

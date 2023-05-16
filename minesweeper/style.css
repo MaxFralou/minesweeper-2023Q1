@@ -36,6 +36,12 @@
   text-indent: -9999px;
 }
 
+.flag {
+  text-indent: -9999px;
+  background-image:url(./assets/flag.png);
+  background-size: cover;
+}
+
 .clicked {
   background: rgb(211, 159, 92);
 }
