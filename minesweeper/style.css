@@ -10,6 +10,7 @@
 .wrapper {
   min-width: 500px;
   margin: auto;
+  padding-bottom: 8px;
 }
 
 .container-button {

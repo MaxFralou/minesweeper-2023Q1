@@ -2,10 +2,10 @@
 const minesweeper = document.querySelector('.minesweeper');
 
 let numMines = 10;
+let numRows = 10;
+let numCols = 10;
 
 function renderBoard() {
-  const numRows = 10;
-  const numCols = 10;
   const board = [];
   let gameOver = false;
 
@@ -72,6 +72,28 @@ function renderBoard() {
   boardHtml += '</div>';
   boardHtml += '</div>';
   minesweeper.innerHTML = boardHtml;
+
+  const gameSizeBoard = document.querySelectorAll('.diff');
+
+  gameSizeBoard.forEach((gameMode, index) => {
+    gameMode.addEventListener('click', (e) => {
+      if (e.target === gameMode) {
+        if (index === 0) {
+          numRows = 10;
+          numCols = 10;
+          renderBoard();
+        } else if (index === 1) {
+          numRows = 15;
+          numCols = 15;
+          renderBoard();
+        } else if (index === 2) {
+          numRows = 25;
+          numCols = 25;
+          renderBoard();
+        }
+      }
+    });
+  });
 
   let seconds = 0;
   let timerValue = '';
