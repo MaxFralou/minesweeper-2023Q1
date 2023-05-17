@@ -8,17 +8,17 @@
 }
 
 .wrapper {
-min-width: 500px;
-margin: auto;
+  min-width: 500px;
+  margin: auto;
 }
 
-.container-button{
+.container-button {
   display: flex;
   justify-content: space-between;
   margin: 2px;
 }
 
-.container-clicks{
+.container-clicks {
   margin: 2px;
   display: flex;
   justify-content: space-between;
@@ -31,6 +31,7 @@ margin: auto;
   background-color: red;
   border-radius: 25px;
   text-align: center;
+  cursor: pointer;
 }
 
 .diff {
@@ -39,6 +40,7 @@ margin: auto;
   border-radius: 1px;
   text-align: center;
   width: 98px;
+  cursor: pointer;
 }
 
 .easy {
@@ -79,7 +81,7 @@ margin: auto;
 
 .flag {
   text-indent: -9999px;
-  background-image:url(./assets/flag.png);
+  background-image: url(./assets/flag.png);
   background-size: cover;
 }
 
@@ -91,34 +93,34 @@ margin: auto;
   background: rgb(255, 63, 63);
 }
 
-.neighbor-1{
+.neighbor-1 {
   color: blue;
 }
 
-.neighbor-2{
+.neighbor-2 {
   color: green;
 }
 
-.neighbor-3{
+.neighbor-3 {
   color: red;
 }
 
-.neighbor-4{
+.neighbor-4 {
   color: navy;
 }
 
-.neighbor-5{
+.neighbor-5 {
   color: brown;
 }
 
-.neighbor-6{
+.neighbor-6 {
   color: teal;
 }
 
-.neighbor-7{
+.neighbor-7 {
   color: purple;
 }
 
-.neighbor-8{
+.neighbor-8 {
   color: black;
 }
