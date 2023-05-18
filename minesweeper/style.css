@@ -137,3 +137,13 @@
   background: rgb(82, 82, 82);
   color: rgb(0, 177, 255);
 }
+
+.score {
+  text-align: center;
+}
+
+.row-score {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+}

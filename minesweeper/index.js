@@ -43,7 +43,7 @@ function renderBoard() {
   let boardHtml = `
   <div class="wrapper">
   <div class="head-container">
-    <div class="duration-title">Time: <span class="duration">00:00</span></div>
+    <div class="duration-title">time: <span class="duration">00:00</span></div>
     <div>
       <span>dark mode</span>
       <input type="checkbox" id="color-theme">
@@ -56,11 +56,11 @@ function renderBoard() {
     <div class="diff hard">25x25</div>
   </div>
   <div class="container-clicks">
-    <div class="counter-clicks">Clicks: <span class="clicks">0</span></div>
-    <div class="counter-flags">Flags: <span class="clicks-flags">0</span></div>
+    <div class="counter-clicks">clicks: <span class="clicks">0</span></div>
+    <div class="counter-flags">flags: <span class="clicks-flags">0</span></div>
     <div>
       <input type="range" id="mines" name="mines" min="10" max="99" value="${numMines}" step="1">
-      <label for="mines">Mines: <span class="mines">0</span></label>
+      <label for="mines">mines: <span class="mines">0</span></label>
     </div>
   </div>
 `;
@@ -75,8 +75,7 @@ function renderBoard() {
     }
     boardHtml += '</div>';
   }
-  boardHtml += '</div>';
-  boardHtml += '</div>';
+  boardHtml += '</div><div class="score">↓scoreboard↓</div></div>';
   minesweeper.innerHTML = boardHtml;
 
   const gameSizeBoard = document.querySelectorAll('.diff');
@@ -124,9 +123,39 @@ function renderBoard() {
   };
   updateUnrevealedCellsCount();
 
+  const score = document.querySelector('.score');
+
+  const saveResult = (result) => {
+    let results = JSON.parse(localStorage.getItem('minesweeperResults')) || [];
+    results.push(result);
+    results = results.slice(-10);
+    localStorage.setItem('minesweeperResults', JSON.stringify(results));
+  };
+
+  const updateScoreTable = () => {
+    const results = JSON.parse(localStorage.getItem('minesweeperResults')) || [];
+    const tableScore = results.map((result) => `
+      <div class="row-score">
+        <div class="time">${result.time}</div>
+        <div class="moves">${result.moves}</div>
+      </div>
+    `).join('');
+    score.innerHTML = '↓scoreboard↓';
+    score.insertAdjacentHTML('beforeend', tableScore);
+  };
+
+  updateScoreTable();
+
   const checkWinCondition = () => {
     if (parseInt(numUnrevealedCells, 10) === parseInt(numMines, 10)) {
       alert(`Hooray! You found all mines in ${timerValue} and ${clicksCount} moves!`);
+
+      const result = {
+        time: timerValue,
+        moves: clicksCount,
+      };
+      saveResult(result);
+      updateScoreTable();
     }
   };
 
