@@ -8,7 +8,7 @@ let numCols = 10;
 function renderBoard() {
   const board = [];
   let gameOver = false;
-
+  let numFlaggedMines = 0;
   let clicksCount = 0;
   minesweeper.innerHTML = '';
   board.length = 0;
@@ -181,8 +181,23 @@ function renderBoard() {
     updateUnrevealedCellsCount();
   };
 
+  const counterFlags = document.querySelector('.clicks-flags');
+
   const cells = document.querySelectorAll('.cell');
   cells.forEach((cell) => {
+    cell.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      if (e.button === 2) {
+        e.target.classList.toggle('flag');
+        if (e.target.classList.contains('flag')) {
+          numFlaggedMines += 1;
+          counterFlags.innerText = numFlaggedMines;
+        } else {
+          numFlaggedMines -= 1;
+          counterFlags.innerText = numFlaggedMines;
+        }
+      }
+    });
     cell.addEventListener('click', (e) => {
       const row = parseInt(e.target.dataset.row, 10);
       const col = parseInt(e.target.dataset.col, 10);
@@ -191,7 +206,7 @@ function renderBoard() {
 
       if (board[col][row].isMine === true) {
         gameOver = true;
-        alert('GAME OVER. Try again');
+        alert('GAME OVER. Try again and good luck!!!');
 
         cells.forEach((eCell) => {
           const cellRow = parseInt(eCell.dataset.row, 10);
