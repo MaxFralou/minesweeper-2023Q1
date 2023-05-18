@@ -42,21 +42,27 @@ function renderBoard() {
   }
   let boardHtml = `
   <div class="wrapper">
+  <div class="head-container">
     <div class="duration-title">Time: <span class="duration">00:00</span></div>
-    <div class="container-button">
-      <div class="reset">new game</div>
-      <div class="diff easy">10x10</div>
-      <div class="diff medium">15x15</div>
-      <div class="diff hard">25x25</div>
+    <div>
+      <span>dark mode</span>
+      <input type="checkbox" id="color-theme">
     </div>
-    <div class="container-clicks">
-      <div class="counter-clicks">Clicks: <span class="clicks">0</span></div>
-      <div class="counter-flags">Flags: <span class="clicks-flags">0</span></div>
-      <div>
-        <input type="range" id="mines" name="mines" min="10" max="99" value="${numMines}" step="1">
-        <label for="mines">Mines: <span class="mines">0</span></label>
-      </div>
+  </div>
+  <div class="container-button">
+    <div class="reset">new game</div>
+    <div class="diff easy">10x10</div>
+    <div class="diff medium">15x15</div>
+    <div class="diff hard">25x25</div>
+  </div>
+  <div class="container-clicks">
+    <div class="counter-clicks">Clicks: <span class="clicks">0</span></div>
+    <div class="counter-flags">Flags: <span class="clicks-flags">0</span></div>
+    <div>
+      <input type="range" id="mines" name="mines" min="10" max="99" value="${numMines}" step="1">
+      <label for="mines">Mines: <span class="mines">0</span></label>
     </div>
+  </div>
 `;
   boardHtml += '<div class="container">';
   for (let col = 0; col < board.length; col += 1) {
@@ -224,6 +230,11 @@ function renderBoard() {
       updateUnrevealedCellsCount();
       checkWinCondition();
     });
+  });
+
+  const darkMode = document.getElementById('color-theme');
+  darkMode.addEventListener('change', () => {
+    minesweeper.classList.toggle('dark-theme', darkMode.checked);
   });
 }
 

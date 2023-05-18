@@ -14,6 +14,12 @@
   padding-bottom: 8px;
 }
 
+.head-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+
 .container-button {
   display: flex;
   justify-content: space-between;
@@ -125,4 +131,9 @@
 
 .neighbor-8 {
   color: black;
+}
+
+.dark-theme {
+  background: rgb(82, 82, 82);
+  color: rgb(0, 177, 255);
 }
