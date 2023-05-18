@@ -42,27 +42,33 @@ function renderBoard() {
   }
   let boardHtml = `
   <div class="wrapper">
-  <div class="head-container">
-    <div class="duration-title">time: <span class="duration">00:00</span></div>
-    <div>
-      <span>dark mode</span>
-      <input type="checkbox" id="color-theme">
-    </div>
-  </div>
-  <div class="container-button">
-    <div class="reset">new game</div>
-    <div class="diff easy">10x10</div>
-    <div class="diff medium">15x15</div>
-    <div class="diff hard">25x25</div>
-  </div>
-  <div class="container-clicks">
-    <div class="counter-clicks">clicks: <span class="clicks">0</span></div>
-    <div class="counter-flags">flags: <span class="clicks-flags">0</span></div>
-    <div>
-      <input type="range" id="mines" name="mines" min="10" max="99" value="${numMines}" step="1">
-      <label for="mines">mines: <span class="mines">0</span></label>
-    </div>
-  </div>
+    <div class="head-container">
+      <div class="duration-title">time: <span class="duration">00:00</span></div>
+      <div>
+        <div class="checkbox-containe">
+          <span>sound</span>
+          <input type="checkbox" id="sound">
+        </div>
+        <div> 
+         <span>dark mode</span>
+         <input type="checkbox" id="color-theme">
+        </div>
+      </div>
+   </div>
+   <div class="container-button">
+     <div class="reset">new game</div>
+     <div class="diff easy">10x10</div>
+     <div class="diff medium">15x15</div>
+     <div class="diff hard">25x25</div>
+   </div>
+   <div class="container-clicks">
+      <div class="counter-clicks">clicks: <span class="clicks">0</span></div>
+      <div class="counter-flags">flags: <span class="clicks-flags">0</span></div>
+      <div>
+        <input type="range" id="mines" name="mines" min="10" max="99" value="${numMines}" step="1">
+        <label for="mines">mines: <span class="mines">0</span></label>
+      </div>
+   </div>
 `;
   boardHtml += '<div class="container">';
   for (let col = 0; col < board.length; col += 1) {
@@ -148,6 +154,9 @@ function renderBoard() {
 
   const checkWinCondition = () => {
     if (parseInt(numUnrevealedCells, 10) === parseInt(numMines, 10)) {
+      if (sound.checked) {
+        winSound.play();
+      }
       alert(`Hooray! You found all mines in ${timerValue} and ${clicksCount} moves!`);
 
       const result = {
@@ -156,6 +165,7 @@ function renderBoard() {
       };
       saveResult(result);
       updateScoreTable();
+      gameOver = true;
     }
   };
 
@@ -238,8 +248,14 @@ function renderBoard() {
       const col = parseInt(e.target.dataset.col, 10);
       clicksCount += 1;
       document.querySelector('.clicks').innerText = clicksCount;
+      if (sound.checked) {
+        clickSound.play();
+      }
 
       if (board[col][row].isMine === true) {
+        if (sound.checked) {
+          gameOverSound.play();
+        }
         gameOver = true;
         alert('GAME OVER. Try again and good luck!!!');
 
@@ -262,9 +278,33 @@ function renderBoard() {
   });
 
   const darkMode = document.getElementById('color-theme');
+
+  const saveCheckboxState = () => {
+    localStorage.setItem('darkMode', darkMode.checked);
+    localStorage.setItem('sound', sound.checked);
+  };
+
+  const loadCheckboxState = () => {
+    const darkModeState = localStorage.getItem('darkMode');
+    const soundState = localStorage.getItem('sound');
+    darkMode.checked = darkModeState === 'true';
+    sound.checked = soundState === 'true';
+  };
+
   darkMode.addEventListener('change', () => {
     minesweeper.classList.toggle('dark-theme', darkMode.checked);
+    saveCheckboxState();
   });
+
+  const sound = document.getElementById('sound');
+  const clickSound = new Audio('./assets/sounds/click.mp3');
+  const winSound = new Audio('./assets/sounds/win.mp3');
+  const gameOverSound = new Audio('./assets/sounds/game-over.mp3');
+  sound.addEventListener('change', () => {
+    saveCheckboxState();
+  });
+
+  loadCheckboxState();
 }
 
 renderBoard();

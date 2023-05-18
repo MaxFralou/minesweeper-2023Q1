@@ -17,8 +17,13 @@
 .head-container {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
 }
 
+.checkbox-containe {
+  display: flex;
+  justify-content: end;
+}
 
 .container-button {
   display: flex;
