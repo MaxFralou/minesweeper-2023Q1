@@ -1,10 +1,12 @@
 .minesweeper {
   font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
   margin: 0;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   background: rgb(245, 245, 245);
+  color: #222222;
 }
 
 .wrapper {
@@ -41,7 +43,7 @@
   margin: 2px;
   padding: 2px;
   width: 98px;
-  background-color: red;
+  background-color: #ff7070;
   border-radius: 25px;
   text-align: center;
   cursor: pointer;
@@ -57,15 +59,15 @@
 }
 
 .easy {
-  background-color: rgb(160, 255, 65);
+  background-color: #F24D98;
 }
 
 .medium {
-  background-color: rgb(255, 243, 76);
+  background-color: #F2F44D;
 }
 
 .hard {
-  background-color: rgb(177, 0, 177);
+  background-color: #813B7C;
 }
 
 .container {
@@ -82,7 +84,7 @@
   font-size: 30px;
   line-height: 50px;
   border-radius: 1px;
-  background-color: greenyellow;
+  background-color: #59D044;
   width: 48px;
   height: 49px;
   cursor: url('./assets/cursor.png'), auto;
@@ -99,7 +101,7 @@
 }
 
 .clicked {
-  background: rgb(211, 159, 92);
+  background: #F3A002;
 }
 
 .boom {
@@ -139,8 +141,8 @@
 }
 
 .dark-theme {
-  background: rgb(82, 82, 82);
-  color: rgb(0, 177, 255);
+  background: #6E6352;
+  color: #ffffff;
 }
 
 .score {
