@@ -9,6 +9,35 @@
   color: #222222;
 }
 
+.game-over {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  max-width: 400px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #a5a5a5, #b8b8b8);
+  border-radius: 6px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.close-pop-up{
+  position: absolute;
+  top: -42px;
+  right: -40px;
+  width: 50px;
+  height: 50px;
+}
+
+.close-pop-up::after{
+  content: "\00d7";
+  font-size: 3rem;
+  font-weight: normal;
+  color: #a5a5a5;
+}
+
 .wrapper {
   min-width: 500px;
   margin: auto;

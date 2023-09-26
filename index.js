@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
 const minesweeper = document.querySelector('.minesweeper');
+const body = document.querySelector('body');
 
 let numMines = 10;
 let numRows = 10;
@@ -157,7 +158,14 @@ function renderBoard() {
       if (sound.checked) {
         winSound.play();
       }
-      alert(`Hooray! You found all mines in ${timerValue} and ${clicksCount} moves!`);
+      const popUpInfo = `  
+        <div class="game-over">
+          <div class="close-pop-up"></div>
+          <h3>Hooray! You found all mines in ${timerValue} and ${clicksCount} moves!</h3>
+        </div>`;
+      body.insertAdjacentHTML('beforeend', popUpInfo);
+      const closePopUp = document.querySelector('.close-pop-up');
+      closePopUp.addEventListener("click", () => renderBoard());
 
       const result = {
         time: timerValue,
@@ -257,8 +265,14 @@ function renderBoard() {
           gameOverSound.play();
         }
         gameOver = true;
-        alert('GAME OVER. Try again and good luck!!!');
-
+        const popUpInfo = `  
+        <div class="game-over">
+          <div class="close-pop-up"></div>
+          <h3>GAME OVER. Try again and good luck!!!</h3>
+        </div>`;
+        body.insertAdjacentHTML('beforeend', popUpInfo);
+        const closePopUp = document.querySelector('.close-pop-up');
+        closePopUp.addEventListener("click", () => renderBoard());
         cells.forEach((eCell) => {
           const cellRow = parseInt(eCell.dataset.row, 10);
           const cellCol = parseInt(eCell.dataset.col, 10);
